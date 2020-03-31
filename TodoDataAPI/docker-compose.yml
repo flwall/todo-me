@@ -1,0 +1,19 @@
+version: '2'
+services: 
+    pgdb:
+        image: postgres
+        volumes:
+            -   ./PGDB_DATA:/var/lib/postgresql/datadir
+        restart: always
+        ports: 
+            - 6543:5432
+        environment:
+            POSTGRES_PASSWORD: root
+            POSTGRES_DB: TodoDB
+
+    todoapi:
+        build: .
+        ports:
+            - 9010:80
+        links: 
+            - "pgdb:pdgb"
