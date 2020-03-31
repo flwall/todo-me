@@ -1,6 +1,7 @@
 **/out/**
 **/Migrations/**
 **/node_modules/**
+**/obj/**
 
 
 ## Ignore Visual Studio temporary files, build results, and
