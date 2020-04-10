@@ -9,3 +9,8 @@ Bc of easier PostgreSQL configuration, I require Docker to run this Application.
 
 to run the Backend:  
 	```docker-compose -f ./TodoDataAPI/docker-compose.yml up```
+
+## Generating a HTTPS Devlopment certificate: 
+	dotnet dev-certs https --clean
+	dotnet dev-certs https -ep https/todo_cert.pfx -p pass1234
+	dotnet dev-certs https --trust

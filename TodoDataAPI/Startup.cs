@@ -37,16 +37,7 @@ namespace TodoDataAPI
         {
 
 
-            /*services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = GoogleDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
-            })
-            .AddGoogle(options =>
-            {
-                options.ClientId = "534816138727-33id6o39vl0tisehopgitltm184kp1u9.apps.googleusercontent.com";
-                options.ClientSecret = "r3V3UyrgJlG6JxLvWhfaGA88"; 
-            });*/
+            
 
             services.AddDbContext<TodoContext>(options =>
             {
@@ -78,16 +69,7 @@ namespace TodoDataAPI
 
             });
 
-            //services.AddAuthentication(options=>
-            //{
-            //    options.DefaultAuthenticateScheme = GoogleDefaults.AuthenticationScheme;
-            //    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
-            //}).AddGoogle(options => {
-            //    options.ClientId = "534816138727-33id6o39vl0tisehopgitltm184kp1u9.apps.googleusercontent.com";
-            //    options.ClientSecret = "OPExeYuyZ6N1pd0olUinZbUD";
-
-
-            //});
+           
 
 
             services.AddOData();
