@@ -14,3 +14,15 @@ to run the Backend:
 	dotnet dev-certs https --clean
 	dotnet dev-certs https -ep https/todo_cert.pfx -p pass1234
 	dotnet dev-certs https --trust
+
+API Endpoint docs:
+/api
+	/auth
+		POST /register:
+			Registers new User
+		POST /login:
+		 	Logs in
+	GET /todos
+	POST /todos
+	PUT	/todos/{todoid}
+	DELETE /todos/{todoid}
