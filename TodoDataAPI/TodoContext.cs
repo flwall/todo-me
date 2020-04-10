@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using TodoDataAPI.Models;
 
 namespace TodoDataAPI
 {
-    public class TodoContext : DbContext
+    public class TodoContext : IdentityDbContext
     {
         public TodoContext
             (DbContextOptions<TodoContext> options)
@@ -14,7 +15,7 @@ namespace TodoDataAPI
             
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<Todo> Todos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

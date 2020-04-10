@@ -13,6 +13,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using System.Net;
+using TodoDataAPI.Models;
+using System.Diagnostics;
 
 namespace TodoDataAPI
 {
@@ -25,19 +32,75 @@ namespace TodoDataAPI
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddOData();
+
+
+            /*services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = GoogleDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+            })
+            .AddGoogle(options =>
+            {
+                options.ClientId = "534816138727-33id6o39vl0tisehopgitltm184kp1u9.apps.googleusercontent.com";
+                options.ClientSecret = "r3V3UyrgJlG6JxLvWhfaGA88"; 
+            });*/
+
             services.AddDbContext<TodoContext>(options =>
-
-            options.UseNpgsql(Configuration["ConnectionStrings:DefaultConnection"])
-
+            {
+                Trace.WriteLine(Configuration["ConnectionStrings:DefaultConnection"]);
+                options.UseNpgsql(Configuration["ConnectionStrings:DefaultConnection"]);
+            }
             );
+            services.AddIdentity<AppUser, IdentityRole>(config =>
+            {
+
+                config.Password.RequireDigit = false;
+                config.Password.RequireLowercase = false;
+                config.Password.RequiredLength = 4;
+                config.Password.RequireUppercase = false;
+                config.Password.RequireNonAlphanumeric = false;
+            })
+                .AddEntityFrameworkStores<TodoContext>()
+                .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.Events.OnRedirectToLogin = ctx =>
+                {
+                    ctx.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                    return Task.FromResult(0);
+
+                };
+                config.LoginPath = "/api/auth/login";
+
+            });
+
+            //services.AddAuthentication(options=>
+            //{
+            //    options.DefaultAuthenticateScheme = GoogleDefaults.AuthenticationScheme;
+            //    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+            //}).AddGoogle(options => {
+            //    options.ClientId = "534816138727-33id6o39vl0tisehopgitltm184kp1u9.apps.googleusercontent.com";
+            //    options.ClientSecret = "OPExeYuyZ6N1pd0olUinZbUD";
+
+
+            //});
+
+
+            services.AddOData();
+
+
+            services.AddMvc(opt =>
+            {
+
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, TodoContext context)
         {
             if (env.IsDevelopment())
@@ -49,9 +112,17 @@ namespace TodoDataAPI
                 app.UseHsts();
             }
             context.Database.Migrate();
-            
 
             app.UseHttpsRedirection();
+
+            app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
+
+            app.UseAuthentication();
+
+
+
+
 
             app.UseMvc(routeBuilder =>
             {
@@ -61,6 +132,7 @@ namespace TodoDataAPI
                 routeBuilder.Expand().Select().OrderBy().Filter();
 
             });
+
         }
     }
 }

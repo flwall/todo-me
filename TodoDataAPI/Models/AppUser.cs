@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,14 +7,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TodoDataAPI.Models
 {
-    public class User
+    public class AppUser:IdentityUser
     {
-        public int ID { get; set; }
-
-        [Required]
-        public string Name { get; set; }
-
-
         [JsonIgnore]
         public List<Todo> Todos { get; set; } = new List<Todo>();
     }
