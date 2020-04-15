@@ -93,6 +93,8 @@ namespace TodoDataAPI
             {
                 app.UseHsts();
             }
+            
+
             context.Database.Migrate();
 
             app.UseHttpsRedirection();
