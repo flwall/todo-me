@@ -4,7 +4,7 @@ services:
         container_name: pgdb
         image: postgres
         volumes:
-            -   ./PGDB_DATA:/var/lib/postgresql/datadir
+            -   pgdb_data:/var/lib/postgresql/datadir
         restart: always
         ports: 
             - 6543:5432
@@ -27,3 +27,6 @@ services:
         
         links: 
             - "pgdb:pdgb"
+
+volumes:
+    pgdb_data:

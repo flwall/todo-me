@@ -37,7 +37,7 @@ namespace TodoDataAPI
         {
 
 
-            
+
 
             services.AddDbContext<TodoContext>(options =>
             {
@@ -69,7 +69,7 @@ namespace TodoDataAPI
 
             });
 
-           
+            services.AddTransient(typeof(DevUsersRegistration));
 
 
             services.AddOData();
@@ -83,7 +83,7 @@ namespace TodoDataAPI
         }
 
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, TodoContext context)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, TodoContext context, DevUsersRegistration reg)
         {
             if (env.IsDevelopment())
             {
@@ -102,7 +102,7 @@ namespace TodoDataAPI
 
             app.UseAuthentication();
 
-
+            reg.RegisterIfNotPresent().GetAwaiter().GetResult();
 
 
 
@@ -115,6 +115,29 @@ namespace TodoDataAPI
 
             });
 
+        }
+    }
+    public class DevUsersRegistration
+    {
+
+        private readonly UserManager<AppUser> _manager;
+        public DevUsersRegistration(UserManager<AppUser> manager) => (this._manager) = (manager);
+
+
+
+        internal async Task RegisterIfNotPresent()
+        {
+            if (!_manager.Users.Any())
+            {
+                var user = new AppUser { UserName = "dev", Email = "dev@todo.me" };
+                var result = await _manager.CreateAsync(user, "pass1234");
+
+                if (!result.Succeeded)
+                {
+                    Trace.WriteLine(result.Errors);
+                }
+               
+            }
         }
     }
 }

@@ -44,8 +44,7 @@ namespace TodoDataAPI.Controllers
             //var user=_userManager.GetUserAsync(User);
             string idclaim = User.Claims.Where(c =>
             {
-                Trace.WriteLine(c);
-                return c.Type == ClaimTypes.NameIdentifier;
+                    return c.Type == ClaimTypes.NameIdentifier;
             }).FirstOrDefault().Value;
 
 
@@ -56,9 +55,7 @@ namespace TodoDataAPI.Controllers
             user.Todos.Add(todo);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetTodos), new { id = todo.TodoID }, todo);
-
-
-
+            
         }
 
         private async Task<IEnumerable<Todo>> GetAuthenticatedUserTodos()
