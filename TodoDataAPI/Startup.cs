@@ -24,131 +24,129 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 
 namespace TodoDataAPI
 {
-    public class Startup
-    {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+	public class Startup
+	{
+		public Startup(IConfiguration configuration)
+		{
+			Configuration = configuration;
+		}
 
-        public IConfiguration Configuration { get; }
-
-
-        public void ConfigureServices(IServiceCollection services)
-        {
+		public IConfiguration Configuration { get; }
 
 
-
-
-            services.AddDbContext<TodoContext>(options =>
-            {
-                Trace.WriteLine(Configuration["ConnectionStrings:DefaultConnection"]);
-                options.UseNpgsql(Configuration["ConnectionStrings:DefaultConnection"]);
-            }
-            );
-            services.AddIdentity<AppUser, IdentityRole>(config =>
-            {
-
-                config.Password.RequireDigit = false;
-                config.Password.RequireLowercase = false;
-                config.Password.RequiredLength = 4;
-                config.Password.RequireUppercase = false;
-                config.Password.RequireNonAlphanumeric = false;
-            })
-                .AddEntityFrameworkStores<TodoContext>()
-                .AddDefaultTokenProviders();
-
-            services.ConfigureApplicationCookie(config =>
-            {
-                config.Events.OnRedirectToLogin = ctx =>
-                {
-                    ctx.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                    return Task.FromResult(0);
-
-                };
-                config.LoginPath = "/api/auth/login";
-
-            });
-
-            services.AddTransient(typeof(DevUsersRegistration));
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder
-                        .AllowAnyMethod()
-                        .AllowCredentials()
-                        .SetIsOriginAllowed((host) => true)
-                        .AllowAnyHeader());
-            });
-
-            services.AddOData();
-
-
-            services.AddMvc(opt =>
-            {
-
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-           
-        }
-
-
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, TodoContext context, DevUsersRegistration reg)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseHsts();
-            }
-            
-
-            context.Database.Migrate();
-
-            app.UseHttpsRedirection();
-
-            app.UseCors("CorsPolicy");
-
-
-            app.UseAuthentication();
-
-            reg.RegisterIfNotPresent().GetAwaiter().GetResult();
+		public void ConfigureServices(IServiceCollection services)
+		{
 
 
 
-            app.UseMvc(routeBuilder =>
-            {
 
-                routeBuilder.EnableDependencyInjection();
+			services.AddDbContext<TodoContext>(options =>
+			{
+				Trace.WriteLine(Configuration["ConnectionStrings:DefaultConnection"]);
+				options.UseNpgsql(Configuration["ConnectionStrings:DefaultConnection"]);
+			}
+			);
+			services.AddIdentity<AppUser, IdentityRole>(config =>
+			{
 
-                routeBuilder.Expand().Select().OrderBy().Filter();
+				config.Password.RequireDigit = false;
+				config.Password.RequireLowercase = false;
+				config.Password.RequiredLength = 4;
+				config.Password.RequireUppercase = false;
+				config.Password.RequireNonAlphanumeric = false;
+			})
+				.AddEntityFrameworkStores<TodoContext>()
+				.AddDefaultTokenProviders();
 
-            });
+			services.ConfigureApplicationCookie(config =>
+			{
+				config.Events.OnRedirectToLogin = ctx =>
+				{
+					ctx.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+					return Task.FromResult(0);
 
-        }
-    }
-    public class DevUsersRegistration
-    {
+				};
+				config.LoginPath = "/api/auth/login";
 
-        private readonly UserManager<AppUser> _manager;
-        public DevUsersRegistration(UserManager<AppUser> manager) => (this._manager) = (manager);
+			});
+
+			services.AddTransient(typeof(DevUsersRegistration));
+			services.AddCors(options =>
+			{
+				options.AddPolicy("CorsPolicy",
+					builder => builder
+						.AllowAnyMethod()
+						.AllowCredentials()
+						.SetIsOriginAllowed((host) => true)
+						.AllowAnyHeader());
+			});
+
+			services.AddOData();
+
+
+			services.AddMvc(opt =>
+			{
+
+			}).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+		}
+
+
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, TodoContext context, DevUsersRegistration reg)
+		{
+			if (env.IsDevelopment())
+			{
+				app.UseDeveloperExceptionPage();
+			}
+			else
+			{
+				app.UseHsts();
+			}
+			context.Database.EnsureCreated();
+
+			app.UseHttpsRedirection();
+
+			app.UseCors("CorsPolicy");
+
+
+			app.UseAuthentication();
+
+			reg.RegisterIfNotPresent().GetAwaiter().GetResult();
 
 
 
-        internal async Task RegisterIfNotPresent()
-        {
-            if (!_manager.Users.Any())
-            {
-                var user = new AppUser { UserName = "dev", Email = "dev@todo.me" };
-                var result = await _manager.CreateAsync(user, "pass1234");
+			app.UseMvc(routeBuilder =>
+			{
 
-                if (!result.Succeeded)
-                {
-                    Trace.WriteLine(result.Errors);
-                }
-               
-            }
-        }
-    }
+				routeBuilder.EnableDependencyInjection();
+
+				routeBuilder.Expand().Select().OrderBy().Filter();
+
+			});
+
+		}
+	}
+	public class DevUsersRegistration
+	{
+
+		private readonly UserManager<AppUser> _manager;
+		public DevUsersRegistration(UserManager<AppUser> manager) => (this._manager) = (manager);
+
+
+
+		internal async Task RegisterIfNotPresent()
+		{
+			if (!_manager.Users.Any())
+			{
+				var user = new AppUser { UserName = "dev", Email = "dev@todo.me" };
+				var result = await _manager.CreateAsync(user, "pass1234");
+
+				if (!result.Succeeded)
+				{
+					Trace.WriteLine(result.Errors);
+				}
+
+			}
+		}
+	}
 }
