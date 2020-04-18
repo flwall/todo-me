@@ -7,6 +7,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
 import {RouterModule} from '@angular/router';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import {RouterModule} from '@angular/router';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot([{
       path: '',
       component: HomeComponent
