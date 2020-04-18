@@ -9,12 +9,12 @@ export class AuthService {
   private API_URL = 'https://localhost:9011/api/';
   constructor(private  http: HttpClient) { }
 
-  loginUser(email, password) {
-    return this.http.post(this.API_URL + 'auth/login/', {
-      email,
-      password
-    }).subscribe(response => {
-      console.log(response);
-    });
+  loginUser(user, pass) {
+     this.http.post(this.API_URL + 'auth/login/', {
+      username: user,
+      password: pass
+    }).subscribe( error => console.log('oops', error),
+    data => console.log('success', data)
+    );
   }
 }
