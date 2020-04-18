@@ -6,10 +6,11 @@ import {HttpClient} from '@angular/common/http';
 })
 export class AuthService {
 
+  private API_URL = 'https://localhost:9011/api/';
   constructor(private  http: HttpClient) { }
 
   loginUser(email, password) {
-    return this.http.post('', {
+    return this.http.post(this.API_URL + 'auth/login/', {
       email,
       password
     }).subscribe(response => {
