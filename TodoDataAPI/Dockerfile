@@ -8,6 +8,10 @@ RUN dotnet restore
 # Copy everything else and build
 
 COPY . ./
+
+#don't do this in practcice!
+RUN dotnet ef migrations add initialMigration				
+
 RUN dotnet publish -c Release -o out
 
 # Build runtime image

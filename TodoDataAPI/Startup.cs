@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Net;
 using TodoDataAPI.Models;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 
 namespace TodoDataAPI
 {
@@ -70,7 +71,7 @@ namespace TodoDataAPI
             });
 
             services.AddTransient(typeof(DevUsersRegistration));
-
+            services.AddCors();
 
             services.AddOData();
 
@@ -79,7 +80,7 @@ namespace TodoDataAPI
             {
 
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+           
         }
 
 
@@ -93,6 +94,8 @@ namespace TodoDataAPI
             {
                 app.UseHsts();
             }
+            
+
             context.Database.Migrate();
 
             app.UseHttpsRedirection();
