@@ -1,7 +1,4 @@
-export interface AuthUser{
-  username:string;
-
-  password:string;
-
-
+export interface AuthUser {
+  username: string;
+  password: string;
 }
