@@ -8,6 +8,8 @@ import { RegisterComponent } from './pages/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
 import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
+import { AuthGuard} from './auth.guard';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -21,18 +23,19 @@ import {HttpClientModule} from '@angular/common/http';
     HttpClientModule,
     RouterModule.forRoot([{
       path: '',
-      component: HomeComponent
+      component: LoginComponent
     },
       {
-        path: 'login',
-        component: LoginComponent
+        path: 'home',
+        component: HomeComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'register',
         component: RegisterComponent
       }])
   ],
-  providers: [],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
