@@ -76,7 +76,7 @@ namespace TodoDataAPI
 				options.AddPolicy("CorsPolicy",
 					builder => builder
 						.AllowAnyMethod()
-						.AllowCredentials()
+						.AllowCredentials().AllowAnyOrigin()
 						.SetIsOriginAllowed((host) => true)
 						.AllowAnyHeader());
 			});

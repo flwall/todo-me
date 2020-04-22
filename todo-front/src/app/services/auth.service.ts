@@ -26,19 +26,12 @@ export class AuthService {
 
   private cookie = 'DEFAULT';
 
-  async loginUser(user, passwrd) {
+  loginUser(user, passwrd) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    headers.set("Access-Control-Allow-Credentials", 'true');
+    headers.set("Access-Control-Allow-Headers",'Origin,Content-Type,Accept,Access-Control-Allow-Origin');
     const u: AuthUser = {username: user, password: passwrd};
-    const sth = this.http.post(this.API_URL + 'auth/login/', u, {headers, responseType: 'text', observe: 'response'});
-
-    sth.map((response) => {
-      this.cookie = response.headers.get('Set-Cookie');
-
-    });
-    await delay(3000);
-
-    return sth;
-
+    return this.http.post(this.API_URL + 'auth/login/', u, {headers, responseType: 'text',observe:'response', withCredentials:true});
   }
 
   setLoggedIn(b: boolean) {
@@ -50,10 +43,8 @@ export class AuthService {
   }
 
   getTodos(): Observable<Todo[]> {
-    console.log(this.cookie);
-    const headers = new HttpHeaders();
-    headers.set('Set-Cookie', this.cookie);
-    return this.http.get<Todo[]>(this.API_URL + 'todos', {headers});
+
+    return this.http.get<Todo[]>(this.API_URL + 'todos', {withCredentials:true});
     /*
       .toPromise()
       .then(response => response.map(i => new Todo(i.todoID, i.title, i.description, i.createtAt, i.done )))

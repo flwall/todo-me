@@ -8,7 +8,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
 import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
-import { AuthGuard} from './auth.guard';
+//import { AuthGuard} from './auth.guard';
 import { AuthService } from './services/auth.service';
 
 @NgModule({
@@ -28,14 +28,14 @@ import { AuthService } from './services/auth.service';
       {
         path: 'home',
         component: HomeComponent,
-        canActivate: [AuthGuard]
+        canActivate: []
       },
       {
         path: 'register',
         component: RegisterComponent
       }])
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
