@@ -1,9 +1,9 @@
 export class Todo {
-  todoID: number;
-  title: string;
-  description: string;
-  createdAt: string;
-  done: boolean;
+  private todoID: number;
+  private title: string;
+  private description: string;
+  private createdAt: string;
+  private done: boolean;
 
   constructor(todoID: number, title: string, description: string, createdAt: string, done: boolean) {
     this.todoID = todoID;

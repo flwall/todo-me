@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FetchToDoService} from '../../services/fetch-to-do.service';
+import {AuthService} from '../../services/auth.service';
 import {Todo} from '../../models/todo';
 
 @Component({
@@ -11,16 +11,19 @@ export class HomeComponent implements OnInit {
   private todos: Todo[];
   private errorMessage: any;
 
-  constructor(private fetchTodo: FetchToDoService) { }
+  constructor(private fetchTodo: AuthService) { }
 
   getTodos() {
     this.fetchTodo.getTodos()
       .subscribe(
-        heroes => this.todos = heroes,
+        todo => {this.todos = todo; console.log(todo); },
         error =>  this.errorMessage = error as any);
   }
 
   ngOnInit(): void {
+    this.getTodos();
+    console.log(this.todos);
   }
+
 
 }

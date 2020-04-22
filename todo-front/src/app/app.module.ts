@@ -10,6 +10,7 @@ import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import { AuthGuard} from './auth.guard';
 import { AuthService } from './services/auth.service';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { AuthService } from './services/auth.service';
   imports: [
     BrowserModule,
     HttpClientModule,
+    TooltipModule.forRoot(),
     RouterModule.forRoot([{
       path: '',
       component: LoginComponent
