@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
+=======
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from '../../services/auth.service';
+import {Router} from '@angular/router';
+>>>>>>> e0b3a7bc6dc3bd07254679397e3f07c306074c1f
+
 
 @Component({
   selector: "app-login",
@@ -10,9 +17,11 @@ import { Router } from "@angular/router";
 export class LoginComponent implements OnInit {
   constructor(private Auth: AuthService, private router: Router) {}
 
-  ngOnInit(): void {}
 
-  loginUser(event) {
+  ngOnInit(): void {
+  }
+
+  async loginUser(event) {
     event.preventDefault();
     const target = event.target;
     const user = target.querySelector("#user").value;

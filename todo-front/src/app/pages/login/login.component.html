@@ -1,5 +1,21 @@
-<form (submit)="loginUser($event)">
-  <input type="text" placeholder="user" id="user">
-  <input type="password" placeholder="password" id="password">
-  <input type="submit" value="Submit">
-</form>
+<!--- index.html -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <div class="fadeIn first">
+      <img src="assets/todoMe.png" id="icon" alt="User Icon" />
+    </div>
+    <h2>Todo ME!</h2>
+    <form (submit)="loginUser($event)">
+      <input type="text" id="user" class="fadeIn second" name="login" placeholder="login">
+      <input type="password" id="password" class="fadeIn third" name="login" placeholder="password">
+      <input type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+    <div id="formFooter">
+      <a class="underlineHover" href="/register">New Account</a>
+    </div>
+
+  </div>
+</div>
+
+
