@@ -1,33 +1,41 @@
-<<<<<<< HEAD
-import { Component, OnInit } from "@angular/core";
-
-import { Todo } from "../../models/todo";
-import { AuthService } from "src/app/services/auth.service";
-=======
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../../services/auth.service';
-import {Todo} from '../../models/todo';
->>>>>>> e0b3a7bc6dc3bd07254679397e3f07c306074c1f
+import { Todo } from '../../models/todo';
+import { AuthService } from 'src/app/services/auth.service';
+import {Observable} from 'rxjs';
+import { Http, Response } from '@angular/http';
+
 
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.scss"],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  private todos: Todo[];
-  private errorMessage: any;
+  public todos: Observable<Todo[]>;
 
-  constructor(private fetchTodo: AuthService) { }
+  constructor(private authService: AuthService, public http: Http) { }
 
   getTodos() {
-    this.fetchTodo.getTodos()
-      .subscribe(
-        todo => {this.todos = todo; console.log(todo); },
-        error =>  this.errorMessage = error as any);
-  }
+    return this.http.get('https://localhost:9011/api/todos', {withCredentials: true}).map((res: Response) => res.json());
+        }
 
   ngOnInit(): void {
-    this.getTodos();
+    this.todos = this.getTodos();
+  }
+
+  onAdd(itemTitle, itemDescription) {
+    this.authService.addTodo(itemTitle.value, itemDescription.value);
+    itemTitle.value = null;
+    itemDescription.value = null;
+  }
+
+  alterCheck(id: string, isChecked) {
+    console.log('done triggered');
+    this.authService.checkOrUnCheckTodo(id, !isChecked);
+  }
+
+  onDelete(id : string) {
+    console.log('ID:' + id + ' gelöscht');
+    this.authService.removeTodo(id);
   }
 }

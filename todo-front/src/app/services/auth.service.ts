@@ -6,11 +6,6 @@ import {Todo} from '../models/todo';
 import 'rxjs/add/operator/map';
 import {delay} from 'rxjs/operators';
 
-interface Data {
-  sucess: boolean;
-  message: string;
-  responseType: string;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -28,10 +23,10 @@ export class AuthService {
 
   loginUser(user, passwrd) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    headers.set("Access-Control-Allow-Credentials", 'true');
-    headers.set("Access-Control-Allow-Headers",'Origin,Content-Type,Accept,Access-Control-Allow-Origin');
+    headers.set('Access-Control-Allow-Credentials', 'true');
+    headers.set('Access-Control-Allow-Headers', 'Origin,Content-Type,Accept,Access-Control-Allow-Origin');
     const u: AuthUser = {username: user, password: passwrd};
-    return this.http.post(this.API_URL + 'auth/login/', u, {headers, responseType: 'text',observe:'response', withCredentials:true});
+    return this.http.post(this.API_URL + 'auth/login/', u, {headers, responseType: 'text', observe: 'response', withCredentials: true});
   }
 
   setLoggedIn(b: boolean) {
@@ -42,14 +37,15 @@ export class AuthService {
     return this.loggedInStatus;
   }
 
-  getTodos(): Observable<Todo[]> {
+  addTodo(title: any, desc: any) {
 
-    return this.http.get<Todo[]>(this.API_URL + 'todos', {withCredentials:true});
-    /*
-      .toPromise()
-      .then(response => response.map(i => new Todo(i.todoID, i.title, i.description, i.createtAt, i.done )))
-      .catch(error => {
-        console.log(error);
-      });*/
+  }
+
+  checkOrUnCheckTodo($key: string, b: boolean) {
+
+  }
+
+  removeTodo($key: string) {
+
   }
 }
