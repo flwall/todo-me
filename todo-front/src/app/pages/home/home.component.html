@@ -1,3 +1,32 @@
-<p>
-  this is the home page
-</p>
+<div class="jumbotron" style="padding:45px 0px">
+  <h4 class="text-center">ToDo Me App</h4>
+</div>
+
+<div class="input-group">
+  <input type="text" class="form-control" #itemTitle placeholder="Title">
+  <input type="text" class="form-control" #itemDecription placeholder="Description">
+  <div class="input-group-addon hover-cursor" (click)="onAdd(itemTitle, itemDecription)">
+    <i class="fa fa-plus-circle fa-2x"></i>
+  </div>
+</div>
+
+<div style="margin:5px 0px">
+  <ul class="list-group" *ngIf="(todos | async).length">
+    <li class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let todo of todos | async">
+    <div class="d-flex w-80 justify-content-between">
+      <h5 class="mb-1">Titel: {{todo.title}}</h5>
+      <small class="text-muted">{{todo.createdAt}}</small>
+    </div>
+      <p class="mb-1">
+        {{todo.description}}
+      </p>
+      <span class="hover-cursor  pull-left" (click)="alterCheck(todo.todoID,todo.done)">
+        <i class="fa fa-check-circle-o"></i>
+      </span>
+      <span class="hover-cursor text-danger pull-right" (click)="onDelete(todo.todoID)">
+        <i class="fa fa-trash-o fa-lg"></i>
+      </span>
+    </li>
+  </ul>
+</div>
+
