@@ -10,6 +10,11 @@ import { delay } from "rxjs/operators";
   providedIn: "root",
 })
 export class AuthService {
+  getTodos(): Observable<Todo[]> {
+    return this.http.get<Todo[]>(`${this.API_URL}todos`, {
+      withCredentials: true,
+    });
+  }
   loggedInStatus = false;
 
   private API_URL = "https://localhost:9011/api/";
@@ -49,9 +54,21 @@ export class AuthService {
     return this.loggedInStatus;
   }
 
-  addTodo(title: any, desc: any) {}
+  addTodo(todo: Todo): Observable<Todo> {
+    return this.http.post<Todo>(this.API_URL + "todos", todo, {
+      withCredentials: true,
+    });
+  }
 
-  checkOrUnCheckTodo($key: string, b: boolean) {}
+  checkOrUnCheckTodo(todoid: number): Observable<Todo> {
+    return this.http.put<Todo>(`${this.API_URL}todos/${todoid}/done`, null, {
+      withCredentials: true,
+    });
+  }
 
-  removeTodo($key: string) {}
+  removeTodo(todoid: number): Observable<Todo> {
+    return this.http.delete<Todo>(`${this.API_URL}todos/${todoid}`, {
+      withCredentials: true,
+    });
+  }
 }

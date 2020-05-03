@@ -20,7 +20,7 @@
       <p class="mb-1">
         {{todo.description}}
       </p>
-      <span class="hover-cursor  pull-left" (click)="alterCheck(todo.todoID,todo.done)">
+      <span class="hover-cursor  pull-left" (click)="alterCheck(todo.todoID)">
         <i class="fa fa-check-circle-o"></i>
       </span>
       <span class="hover-cursor text-danger pull-right" (click)="onDelete(todo.todoID)">
