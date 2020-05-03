@@ -1,1 +1,18 @@
-<p>register works!</p>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <div class="fadeIn first">
+      <img src="assets/todoMe.png" id="icon" alt="User Icon" />
+    </div>
+    <h2>Todo ME!</h2>
+    <form (submit)="registerUser($event)">
+
+      <input type="email" id="email" class="fadeIn second" name="email" placeholder="E-Mail">
+      <input type="text" id="user" class="fadeIn second" name="login" placeholder="Username">
+      <input type="password" id="password" class="fadeIn third" name="login" placeholder="Password">
+      <input type="submit" class="fadeIn fourth" value="Register">
+    </form>
+
+
+  </div>
+</div>
