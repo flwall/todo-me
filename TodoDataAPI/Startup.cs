@@ -59,9 +59,17 @@ namespace TodoDataAPI
             });
 
             services.AddTransient(typeof(DevUsersRegistration));
-            
 
 
+            services.AddCors(options =>
+            {
+            options.AddPolicy("CorsPolicy",
+                builder => builder
+                    .SetIsOriginAllowed(_=>true)
+                        .AllowAnyMethod()
+                        .AllowCredentials()
+                        .AllowAnyHeader());
+            });
 
             services.AddMvc(opt =>
             {
@@ -88,6 +96,10 @@ namespace TodoDataAPI
 
             context.Database.EnsureCreated();
 
+            if (env.IsDevelopment())
+            {
+                app.UseCors("CorsPolicy");
+            }
 
             app.UseHttpsRedirection();
 

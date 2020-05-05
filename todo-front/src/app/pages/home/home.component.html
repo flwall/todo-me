@@ -3,11 +3,13 @@
 </div>
 
 <div class="input-group">
+
   <input type="text" class="form-control" #itemTitle placeholder="Title">
   <input type="text" class="form-control" #itemDecription placeholder="Description">
-  <div class="input-group-addon hover-cursor" (click)="onAdd(itemTitle, itemDecription)">
+  <button type="submit" class="input-group-addon hover-cursor" (click)="onAdd(itemTitle, itemDecription)">
     <em class="fa fa-plus-circle fa-2x"></em>
-  </div>
+  </button>
+
 </div>
 
 <div style="margin:5px 0px">

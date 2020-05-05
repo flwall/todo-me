@@ -4,13 +4,11 @@ import { AuthUser } from '../models/authUser';
 import { Observable } from 'rxjs';
 import { Todo } from '../models/todo';
 import 'rxjs/add/operator/map';
-import { delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-
   constructor(private http: HttpClient) {}
 
   get isLoggedIn() {
@@ -19,7 +17,6 @@ export class AuthService {
   loggedInStatus = false;
 
   private API_URL = `${document.location.origin}/api/`;
-
 
   getTodos(): Observable<Todo[]> {
     return this.http.get<Todo[]>(`${this.API_URL}todos`, {

@@ -3,8 +3,7 @@ WORKDIR /usr/src/app
 COPY ./todo-front/package.json ./
 RUN npm install
 COPY ./todo-front .
-RUN npm run-script build
-
+RUN ng build --prod
 
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
