@@ -4,6 +4,7 @@ import { AuthUser } from '../models/authUser';
 import { Observable } from 'rxjs';
 import { Todo } from '../models/todo';
 import 'rxjs/add/operator/map';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,9 @@ export class AuthService {
   }
   loggedInStatus = false;
 
-  private API_URL = `${document.location.origin}/api/`;
+  private API_URL = environment.production
+    ? `${document.location.origin}/api/`
+    : 'http://localhost:5000/api/';
 
   getTodos(): Observable<Todo[]> {
     return this.http.get<Todo[]>(`${this.API_URL}todos`, {
@@ -68,6 +71,4 @@ export class AuthService {
       withCredentials: true,
     });
   }
-
-
 }

@@ -1,19 +1,21 @@
 # Description  
-a small Todo Asp.NET Core Backend with ODATA Filter capabilities and missing Authentication (planned with OAuth2).
-Furthermore, there will be a Angular Frontend here using this Backend.
+A Awesome Todo App built upon ASP.NET Core 3.1 and Angular "Ivy" 9
 
 It uses a PostgreSQL DB Docker Container.
 
 # Installation  
 Bc of easier PostgreSQL configuration, I require Docker to run this Application. 
 
-to run the Backend:  
-	```docker-compose -f ./TodoDataAPI/docker-compose.yml up```
-
-## Generating a HTTPS Devlopment certificate: 
+### Generating a HTTPS certificate: (this is required!!!)
+	cd TodoDataAPI/
 	dotnet dev-certs https --clean
 	dotnet dev-certs https -ep https/todo_cert.pfx -p pass1234
-	dotnet dev-certs https --trust
+	dotnet dev-certs https --trust  
+
+to run the Application:  
+	```docker-compose up```  
+
+After that, the application should run under **[https://localhost:9011/](https://localhost:9011/)**
 
 ------
 # API Endpoints

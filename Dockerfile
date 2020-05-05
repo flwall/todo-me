@@ -3,7 +3,7 @@ WORKDIR /usr/src/app
 COPY ./todo-front/package.json ./
 RUN npm install
 COPY ./todo-front .
-RUN ng build --prod
+RUN npx ng build --prod
 
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
@@ -24,5 +24,4 @@ COPY TodoDataAPI/https /https
 WORKDIR /app
 COPY --from=build-env /app/out .
 COPY --from=ng-build /usr/src/app/dist/todo-front ../todo-front/dist
-RUN ls -la&&ls -la ../todo-front/dist
 ENTRYPOINT dotnet TodoDataAPI.dll
