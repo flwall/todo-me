@@ -1,13 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { Todo } from "../../models/todo";
-import { AuthService } from "src/app/services/auth.service";
-import { Observable } from "rxjs";
-import { map, single, filter, merge } from "rxjs/operators";
+import { Component, OnInit } from '@angular/core';
+import { Todo } from '../../models/todo';
+import { AuthService } from 'src/app/services/auth.service';
+import { Observable } from 'rxjs';
+import { map, single, filter, merge } from 'rxjs/operators';
 
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.scss"],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
   public todos: Observable<Todo[]>;
@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   onAdd(itemTitle, itemDescription) {
     this.authService
       .addTodo({ title: itemTitle.value, description: itemDescription.value })
-      .subscribe((d) => (this.todos = this.getTodos())); //not neccessary to fetch each todo every time
+      .subscribe((d) => (this.todos = this.getTodos())); // not neccessary to fetch each todo every time
 
     itemTitle.value = null;
     itemDescription.value = null;
@@ -33,14 +33,14 @@ export class HomeComponent implements OnInit {
 
   alterCheck(id: number) {
     this.authService.toggleTodo(id).subscribe((ob) => {
-      this.todos = this.getTodos(); //not good
+      this.todos = this.getTodos(); // not good
     });
   }
 
   onDelete(id: number) {
-    console.log("ID:" + id + " gelöscht");
+    console.log('ID:' + id + ' gelöscht');
     this.authService.removeTodo(id).subscribe((t) => {
-      this.todos = this.getTodos(); //alter that
+      this.todos = this.getTodos(); // alter that
     });
   }
 }

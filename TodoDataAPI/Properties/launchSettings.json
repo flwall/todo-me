@@ -20,7 +20,7 @@
     "TodoDataAPI": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/users/",
+      "launchUrl": "/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
