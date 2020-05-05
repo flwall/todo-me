@@ -11,10 +11,12 @@ import {Router} from '@angular/router';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  isFalse: boolean ;
   constructor(private Auth: AuthService, private router: Router) {}
 
 
   ngOnInit(): void {
+    this.isFalse = false;
   }
 
   async loginUser(event) {
@@ -31,7 +33,8 @@ export class LoginComponent implements OnInit {
         }
       },
       (error) => {
-        window.alert('invalid credentials');
+        //window.alert('invalid credentials');
+        this.isFalse = true;
         console.log(error);
       }
     );

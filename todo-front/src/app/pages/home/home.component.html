@@ -1,5 +1,5 @@
-<div class="jumbotron" style="padding:45px 0px;background-color: #c93a3a;">
-  <h4 class="text-center">ToDo-Me</h4>
+<div class="jumbotron" style="padding:45px 0px;  background: rgb(255,255,255); background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(252,70,107,1) 100%); ;">
+  <h4 class="text-center bold">ToDo-Me</h4>
 </div>
 
 <div class="input-group">
@@ -14,7 +14,7 @@
   <ul class="list-group" *ngIf="todos">
     <li class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let todo of todos | async">
     <div class="d-flex w-80 justify-content-between">
-      <h5 class="mb-1" *ngIf="!todo.done;else doneTitle">Titel: {{todo.title}}</h5>
+      <h5 class="mb-1" *ngIf="!todo.done;else doneTitle">Todo: {{todo.title}}</h5>
       <small class="text-muted">{{todo.createdAt}}</small>
     </div>
       <p class="mb-1" *ngIf="!todo.done;else doneDesc">
@@ -28,7 +28,7 @@
         <em class="fa fa-trash-o fa-lg"></em>
       </span>
       <ng-template #doneTitle>
-        <h5><s>Titel: {{todo.title}}</s></h5>
+        <h5><s>Todo: {{todo.title}}</s></h5>
       </ng-template>
       <ng-template #doneDesc>
         <p> <s>{{todo.description}}</s></p>

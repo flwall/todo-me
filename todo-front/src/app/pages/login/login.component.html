@@ -14,7 +14,11 @@
     <div id="formFooter">
       <a class="underlineHover" href="/register">New Account</a>
     </div>
-
+    <div *ngIf = "isFalse">
+      <div class="alert alert-danger" role="alert">
+        ❌ Opps. Maybe username or Password is invalid. ❌
+      </div>
+    </div>
   </div>
 </div>
 

@@ -10,6 +10,7 @@ import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
       {
         path: 'register',
         component: RegisterComponent
-      }])
+      }]),
+    FormsModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
