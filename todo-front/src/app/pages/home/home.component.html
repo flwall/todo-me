@@ -1,41 +1,56 @@
-<div class="jumbotron" style="padding:45px 0px;background-color: #c93a3a;">
-  <h4 class="text-center">ToDo-Me</h4>
+<div class="jumbotron" style="padding:45px 0px;  background: rgb(255,255,255); background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(252,70,107,1) 100%); ;">
+  <h4 class="text-center bold">ToDo-Me</h4>
 </div>
-
+<form>
 <div class="input-group">
 
   <input type="text" class="form-control" #itemTitle placeholder="Title">
   <input type="text" class="form-control" #itemDecription placeholder="Description">
-  <button type="submit" class="input-group-addon hover-cursor" (click)="onAdd(itemTitle, itemDecription)">
-    <em class="fa fa-plus-circle fa-2x"></em>
-  </button>
+  <div class="input-group-addon hover-cursor" (click)="onAdd(itemTitle, itemDecription)">
+   <button type="submit">
+     <em class="fa fa-plus-circle fa-2x"></em>
+   </button>
 
+  </div>
 </div>
+</form>
 
 <div style="margin:5px 0px">
   <ul class="list-group" *ngIf="todos">
-    <li class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let todo of todos | async">
-    <div class="d-flex w-80 justify-content-between">
-      <h5 class="mb-1" *ngIf="!todo.done;else doneTitle">Titel: {{todo.title}}</h5>
-      <small class="text-muted">{{todo.createdAt}}</small>
-    </div>
-      <p class="mb-1" *ngIf="!todo.done;else doneDesc">
-        {{todo.description}}
-      </p>
-
-      <span class="hover-cursor  pull-left" (click)="alterCheck(todo.todoID)">
-        <em class="fa fa-check-circle-o"></em>
-      </span>
-      <span class="hover-cursor text-danger pull-right" (click)="onDelete(todo.todoID)">
-        <em class="fa fa-trash-o fa-lg"></em>
-      </span>
+    <li class="list-group-item list-group-item-action" *ngFor="let todo of todos | async">
+      <div class="container">
+        <tr class="something">
+          <td class="col-md-1" *ngIf="!todo.done;else doneCheck">
+               <span class="hover-cursor  pull-left" (click)="alterCheck(todo.todoID)">
+                  <em class="fa fa-check-circle-o fa-3x"></em>
+               </span>
+          </td>
+          <td class="col-md-10">
+            <h5 *ngIf="!todo.done;else doneTitle">Todo: {{todo.title}}</h5>
+            <p *ngIf="!todo.done;else doneDesc">
+              {{todo.description}}
+            </p>
+          </td>
+          <td class="col-md-1">
+            <div class="col text-right">
+              <span class="hover-cursor text-danger pull-right" (click)="onDelete(todo.todoID)">
+                <em class="fa fa-trash-o fa-lg fa-2x"></em>
+              </span>
+            </div>
+          </td>
+        </tr>
+      </div>
       <ng-template #doneTitle>
-        <h5><s>Titel: {{todo.title}}</s></h5>
+        <h5><s>Todo: {{todo.title}}</s></h5>
       </ng-template>
       <ng-template #doneDesc>
         <p> <s>{{todo.description}}</s></p>
       </ng-template>
-    </li>
+      <ng-template #doneCheck>
+        <span class="hover-cursor  text-success pull-left" (click)="alterCheck(todo.todoID)">
+        <em class="fa fa-check-circle-o fa-3x"></em>
+        </span>
+      </ng-template>
 
   </ul>
 
