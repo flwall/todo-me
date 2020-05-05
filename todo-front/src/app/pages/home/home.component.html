@@ -1,17 +1,17 @@
-<div class="jumbotron" style="padding:45px 0px">
-  <h4 class="text-center">ToDo Me App</h4>
+<div class="jumbotron" style="padding:45px 0px;background-color: #c93a3a;">
+  <h4 class="text-center">ToDo-Me</h4>
 </div>
 
 <div class="input-group">
   <input type="text" class="form-control" #itemTitle placeholder="Title">
   <input type="text" class="form-control" #itemDecription placeholder="Description">
   <div class="input-group-addon hover-cursor" (click)="onAdd(itemTitle, itemDecription)">
-    <i class="fa fa-plus-circle fa-2x"></i>
+    <em class="fa fa-plus-circle fa-2x"></em>
   </div>
 </div>
 
 <div style="margin:5px 0px">
-  <ul class="list-group" *ngIf="(todos | async).length">
+  <ul class="list-group" *ngIf="todos">
     <li class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let todo of todos | async">
     <div class="d-flex w-80 justify-content-between">
       <h5 class="mb-1" *ngIf="!todo.done;else doneTitle">Titel: {{todo.title}}</h5>
@@ -25,7 +25,7 @@
         <em class="fa fa-check-circle-o"></em>
       </span>
       <span class="hover-cursor text-danger pull-right" (click)="onDelete(todo.todoID)">
-        <i class="fa fa-trash-o fa-lg"></i>
+        <em class="fa fa-trash-o fa-lg"></em>
       </span>
       <ng-template #doneTitle>
         <h5><s>Titel: {{todo.title}}</s></h5>

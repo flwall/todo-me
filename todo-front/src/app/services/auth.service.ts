@@ -60,7 +60,7 @@ export class AuthService {
     });
   }
 
-  checkOrUnCheckTodo(todoid: number): Observable<Todo> {
+  toggleTodo(todoid: number): Observable<Todo> {
     return this.http.put<Todo>(`${this.API_URL}todos/${todoid}/done`, null, {
       withCredentials: true,
     });
