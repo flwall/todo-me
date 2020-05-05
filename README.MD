@@ -15,14 +15,49 @@ to run the Backend:
 	dotnet dev-certs https -ep https/todo_cert.pfx -p pass1234
 	dotnet dev-certs https --trust
 
+------
+# API Endpoints
 API Endpoint docs:
-/api
-	/auth
-		POST /register:
-			Registers new User
-		POST /login:
-		 	Logs in
-	GET /todos
-	POST /todos
-	PUT	/todos/{todoid}
-	DELETE /todos/{todoid}
+
+| Endpoint             | HTTP Request Methods | Description              |
+| -------------------- | -------------------- | ------------------------ |
+| /api/auth/login      | POST                 | login with existing user |
+| /api/auth/register   | POST                 | register a new user      |
+| /api/todos           | GET                  | get all todos            |
+| /api/todos/{todoid}  | POST                 | add new todo             |
+| /api/todos/{todoid}  | PUT                  | edit todo                |
+| /api/todos//{todoid} | DELETE               | delete todo              |	
+------
+# Pages
+###### Login Page
+
+`/`
+
+![pJz12.png](https://picr.eu/images/2020/05/05/pJz12.png)
+
+login with your credentials
+
+------
+
+###### Register Page
+
+`/register`
+
+
+
+​								![pJOzu.png](https://picr.eu/images/2020/05/05/pJOzu.png)
+
+
+​	Register with your email, username and password
+
+------
+
+###### Home Page
+
+`/home`
+
+![pJPl4.png](https://picr.eu/images/2020/05/05/pJPl4.png)
+------
+
+
+	

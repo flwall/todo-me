@@ -1,5 +1,4 @@
 ﻿
-using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -26,8 +25,6 @@ namespace TodoDataAPI.Controllers
 
 
         [HttpGet("todos")]
-
-        [EnableQuery]
         public async Task<ActionResult<IEnumerable<Todo>>> GetTodos()
         {
 
