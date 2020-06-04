@@ -29,10 +29,8 @@ export class RegisterComponent implements OnInit {
         );
       },
       (error) => {
-        window.alert('invalid credentials');
-        console.log(error);
+
       }
     );
-    console.log('Input from user:' + user, password);
   }
 }
