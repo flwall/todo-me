@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
 
   onDelete(id: number) {
     this.authService.removeTodo(id).subscribe((t) => {
-      this.todos = this.getTodos(); // alter that
+      this.todos = this.getTodos();                     // alter that
     });
   }
 }
