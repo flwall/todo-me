@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Todo } from '../../models/todo';
 import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
-import { map, single, filter, merge } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
